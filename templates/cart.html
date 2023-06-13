@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}cart{% endblock %}
+{% block content %}
+<br>
+<br>
+<br>
+
+<div align="center">
+  <font face="Playfair Display Bold" size="7">CART.</font>
+</div>
+<br>
+
+<!-- Main Menu Section -->
+<div align="center">
+  <form method="post">
+    {% csrf_token %}
+    <table class="table">
+      <thead>
+        <tr>
+          <th class="">Item Name</th>
+          <th class="">Item Price</th>
+          <th class="">Quatity</th>
+          <th class="">Total Price</th>
+          <th class="">Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for product_id, product in product_dict.items %}
+        <tr class="">
+          <td class="" valign="middle">
+            <div class="product-info">
+              {% if product.product.product_image_set.all %}
+              {% if product.product.product_image_set.all.0.image %}
+              <img width="80" src="{{ product.product.product_image_set.all.0.image.url }}" alt="" />
+              {% endif %}
+              {% endif %}
+              <img src="{{ product.product.image.url }}" width="50" href="">
+              <a href="" style="color:#ff7b00;">{{ product.product.title }}</a>
+            </div>
+          </td>
+          <td class="" valign="middle">${{ product.product.price }}</td>
+          <td class="" valign="middle">
+            {{ product.count }}
+          </td>
+          <td class="" valign="middle">${% widthratio product.product.price 1 product.count %}</td>
+          <td class="" valign="middle">
+            <button onclick="deletecart()" class="btn btn-outline-danger">Remove</button>
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+    <a href="checkout.html" class="btn btn-outline-dark">Checkout</a>
+  </form>
+</div>
+
+
+{% endblock content %}
